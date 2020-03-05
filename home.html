@@ -55,8 +55,8 @@
   <button type="button" id="addItem" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
     Add
   </button>
-        <table class="table" style="margin-top:2%">
-            <thead>
+        <table class="table table-bordered table-striped"  style="margin-top:2%">
+            <thead class="thead-dark">
               <tr>
                 <th scope="col">S.No</th>
                 <th scope="col">Name</th>
@@ -65,14 +65,7 @@
               </tr>
             </thead>
             <tbody id="tabody">
-              <!-- <tr>
-                <th id="sno" scope="row"></th>
-                <td id="fullName"></td>
-                <td id="age"></td>
-                <td>Action</td>
-                
-              </tr>
-               -->
+
             </tbody>
           </table>
     </div>
@@ -94,9 +87,11 @@
           <div class="row">
             <div class="col">
               <input type="text" id="inputName" class="form-control" placeholder="Name">
+              <input class="form-control" id="readName" type="text" placeholder="Readonly input here…" readonly>
             </div>
             <div class="col">
               <input type="text" id="inputAge" class="form-control" placeholder="Age">
+              <input class="form-control" id="readAge" type="text" placeholder="Readonly input here…" readonly>
             </div>
           </div>
         </form>
