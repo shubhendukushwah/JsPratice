@@ -11,8 +11,6 @@ $(document).ready(function(){
         $("#add").show();
         $("input").val('');
     });
-
-    var sno = 1
     // add row
         $("#add").click(function(){           
             var name = $("#inputName").val();
@@ -22,28 +20,33 @@ $(document).ready(function(){
                 alert("Invalid age");
 
             }
+            
             else{
-                var row = '<tr><th scope="row">'+sno+'</th><td class="name">'+
+                var row = '<tr><th scope="row" class="serial-num">'+$('tr').length+'</th><td class="name">'+
                 name+'</td><td class="age">'+
                 age+'</td><td>'+
                 '<div class="btn-group btn-group-toggle" data-toggle="buttons">\
                 <button type="button" class="btn btn-sm btn-dark update1" data-toggle="modal" data-target="#addModal">Update</button>\
                 <button type="button" id="" class="btn btn-dark" data-toggle="modal" >Up</button>\
                 <button type="button" id="" class="btn btn-dark" data-toggle="modal" >Down</button>\
-                <button type="button" id="delete" class="btn btn-dark" data-toggle="modal">Delete</button>\
                 <button type="button"  class="btn btn-dark view" data-toggle="modal" data-target="#addModal">View</button>\
+                <button type="button" id="delete" class="btn btn-dark" data-toggle="modal">Delete</button>\
               </div>'+'</td></tr>';
                 $('#tabody').append(row);
-                sno +=1;
+
     
             }
 
            
         });
 
-        // delete row
+        delete row
             $("#tabody").on('click', '#delete', function () {
+                var current_pos = $(this).closest('tr').find('.serial-num').text();
+                var next_row = $(this).closest('tr').next('tr')
                 $(this).closest('tr').remove();
+                updateRowcount(current_pos,next_row)
+
             });
 
         var temp ='';
@@ -107,9 +110,13 @@ $(document).ready(function(){
             return arr;
         }
 
-        function validateModal(){
 
-            alert("Hola")
-        }
-       
+       function updateRowcount(pos,next_row){
+           for(var i=pos ;i<$('tr').length;i++){
+                $(next_row).closest('tr').find('.serial-num').text(i);
+                next_row = $(next_row).closest('tr').next('tr')
+
+           }
+
+       }
 });
