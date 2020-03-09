@@ -7,8 +7,12 @@
     <title>Document</title>
     <script src="jquery-3.4.1.slim.min.js"></script>
     
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js">
+
+  
+  </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- <script src="validation.js"></script> -->
 
   </head>
 <body>
@@ -83,34 +87,33 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="basic-form">
           <div class="row">
             <div class="col">
-              <input type="text" id="inputName" class="form-control" placeholder="Name">
-              <p class="text-danger" id='invalidName'></p>
-              <input class="form-control" id="readName" type="text" placeholder="Readonly input here…" readonly>
+              <input type="text" id="inputName" name="name" type="text" class="form-control" placeholder="Name" required>
+              <!-- <p class="text-danger" id='invalidName'></p> -->
+              <input class="form-control" id="readName"  type="text" placeholder="Readonly input here…" readonly>
             </div>
             <div class="col">
-              <input type="text" id="inputAge" class="form-control" placeholder="Age">
-              <p class="text-danger" id='invalidAge'></p>
+              <input type="text" id="inputAge" name="age" class="form-control" placeholder="Age">
+              <!-- <p class="text-danger" id='invalidAge'></p> -->
               <input class="form-control" id="readAge" type="text" placeholder="Readonly input here…" readonly>
             </div>
           </div>
         </form>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" id="add" class="btn btn-primary">Add to table</button>
+        <button type="button" id="add" class="btn btn-primary" type="submit" value="Submit">Add to table</button>
         <button type="button" id="update2" class="btn btn-primary">Update</button>
       </div>
     </div>
   </div>
+
 </div>
-
-
-
-
 
 </body>
 <script src="myJs.js"></script>
+
 </html>

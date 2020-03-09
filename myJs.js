@@ -11,39 +11,121 @@ $(document).ready(function(){
         $("#update2").hide();
         $("#add").show();
         $("input").val('');
+
+
+      
+      jQuery.validator.addMethod("nameip", function(value, element) {
+          if (/^[a-zA-Z ]+$/.test(value)){
+              return true;
+          }
+          else{
+              return false;
+          };
+      }, "Invalid name");
+
+      jQuery.validator.addMethod("ageip", function(value, element) {
+        if (/^[0-9]+$/.test(value)){
+            return true;
+        }
+        else{
+            return false;
+        };
+    }, "Invalid age");
+
+
+    var timeRepeated = 0; 
+
+    $.validator.addMethod('unique', function(value, element) {
+        
+        if (value && value.length)
+        {
+            nameobj = $('#tabody').find('.name').each(function (){});
+                var namearr=[];
+                for (var i=0;i<nameobj.length;i++)
+                {
+                    name = nameobj[i].textContent.toLowerCase(); 
+                    namearr.push(String(name))
+                }
+                if (namearr.includes(String(value.toLowerCase())))
+                {
+                    timeRepeated++;
+                }
+                else{
+                    timeRepeated =1;
+                }
+            
+        }
+        if (timeRepeated >1)
+        {
+            return false;
+        }
+        else{
+            return true;
+        }
+        
+
+    }, "Duplicate name found");
+
+      
+        $("#basic-form").validate({
+            rules: {
+                    name: {
+                    minlength:3,
+                    required:true,
+                    nameip:true,
+                    unique:true
+              },
+              age:{
+                  required:true,
+                //   minlength:2,
+                  ageip:true,
+                  range: [18, 130]
+              }
+            },
+            messages: {
+                minlength: jQuery.validator.format("At least {0} characters required!"),
+                unique: " Duplicate name found",
+                range: "Age must be in range of 18-130 "
+            }
+
+        });
+
+             
     });
 
-// add row
-    $("#add").click(function(){     
+
+    $("#add").click(function(){    
+        
+
         $("#invalidName").hide(); 
         $("#invalidAge").hide();
         var name = $("#inputName").val();
         var age =  $("#inputAge").val();
+        
+        // if(isNaN(age)){
+        //     $("#invalidName").hide(); 
+        //     $("#invalidAge").text("Invalid age"); 
+        //     $("#invalidAge").show(); 
 
-        if(isNaN(age)){
+        // }
+        // else if(age == '' || name  == '' ){
+        //     $("#invalidName").hide(); 
+        //     $("#invalidAge").hide(); 
+        //     $("#invalidName").text("Fields cannot be empty"); 
+        //     $("#invalidName").show(); 
+        // }
+
+        // else if(! isalpha(name)){
+        //     $("#invalidAge").hide();
+        //     $("#invalidName").text("Invalid name"); 
+        //     $("#invalidName").show(); 
+
+        // }
+
+
             $("#invalidName").hide(); 
-            $("#invalidAge").text("Invalid age"); 
-            $("#invalidAge").show(); 
-
-        }
-        else if(age == '' || name  == '' ){
-            $("#invalidName").hide(); 
-            $("#invalidAge").hide(); 
-            $("#invalidName").text("Fields cannot be empty"); 
-            $("#invalidName").show(); 
-        }
-
-        else if(! isalpha(name)){
             $("#invalidAge").hide();
-            $("#invalidName").text("Invalid name"); 
-            $("#invalidName").show(); 
-
-        }
-
-        else{
-            $("#invalidName").hide(); 
-            $("#invalidAge").hide();
-            var row = '<tr><th scope="row" class="serial-num">'+$('tr').length+'</th><td class="name">'+
+            var row = '<tr><th scope="row" class="serial-num">'+$('tr').length+'</th><td name='+name+' class="name">'+
             name+'</td><td class="age">'+
             age+'</td><td>'+
             '<div class="btn-group btn-group-toggle" data-toggle="buttons">\
@@ -53,11 +135,13 @@ $(document).ready(function(){
             <button type="button"  class="btn btn-dark view" data-toggle="modal" data-target="#addModal">View</button>\
             <button type="button" id="delete" class="btn btn-dark" data-toggle="modal">Delete</button>\
             </div>'+'</td></tr>';
+            if ($("#basic-form").valid()){
             $('#tabody').append(row);
-
-
         }
+
     });
+
+
 
     // up and down
     $("#tabody").on('click',".up , .down",function(){
@@ -93,7 +177,8 @@ $(document).ready(function(){
         
 
     // open modal and fill current selected row data
-    var temp ='';
+    
+    var temp ='';   // Global variable
     $("#tabody").on("click",'.update1' ,function(){  
         $("#exampleModalLabel").text("Update");  
         $("#add").hide();
