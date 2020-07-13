@@ -80,12 +80,12 @@ Eg: users = [
 
 // Delete a particular user with matching id
 
-  function del(item,index,arr){
+  function removeItem(item,index,arr){
     if (item.id == id) {
       arr.splice(index,1)}
     }
 
-    users.find((item)=>item.id==id)
+    users.find(removeItem)
 
 //Update a particular user property with matching ID
 
